@@ -25,6 +25,21 @@ public class UserService {
 		Optional<User> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 		}
+
+	public User findByStatusName(Integer status, String name) {
+		List<User> obj = repo.findByStatusName(status, name);
+		User usr;
+		try {
+			usr = obj.get(0);
+			usr.setStatus(2);
+			repo.save(usr);
+		}
+		catch (IndexOutOfBoundsException e){
+			return null;
+		}
+		//return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+		return usr;
+	}
 	
 	public User insert(User obj) {
 		return repo.insert(obj);
@@ -48,6 +63,6 @@ public class UserService {
 	}
 
 	public User fromDTO(UserDTO objDto) {
-		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail(), 1);
 	}
 }

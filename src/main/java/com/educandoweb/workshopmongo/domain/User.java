@@ -16,6 +16,7 @@ public class User implements Serializable{
 	private String id;
 	private String name;
 	private String email;
+	private Integer status;
 	
 	@DBRef(lazy = true)
 	private List<Post> posts = new ArrayList<>();
@@ -23,11 +24,12 @@ public class User implements Serializable{
 	public User() {
 	}
 
-	public User(String id, String name, String email) {
+	public User(String id, String name, String email, Integer status) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.status = status;
 	}
 
 	public String getId() {
@@ -60,6 +62,14 @@ public class User implements Serializable{
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Override
